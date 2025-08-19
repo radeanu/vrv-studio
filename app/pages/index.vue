@@ -1,8 +1,9 @@
 <template>
-	<div>Intro</div>
+	<ApTable :apartments="apartments" :floors="floors" />
 
 	<pre>{{ pagination }}</pre>
 	<pre>{{ query }}</pre>
+	<pre>{{ apartments }}</pre>
 </template>
 
 <script setup lang="ts">

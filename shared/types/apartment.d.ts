@@ -22,6 +22,7 @@ export type Apartment = {
 	price: number;
 	area: number;
 	floor: number;
+	image: string;
 };
 
 export type House = {

@@ -11,7 +11,7 @@
 		</ul>
 
 		<ul>
-			<li v-for="(item, idx) in apartList" :key="idx" class="grid-row">
+			<li v-for="(item, idx) in apartments" :key="idx" class="grid-row">
 				<NuxtImg
 					:src="item.image"
 					alt="Картинка"
@@ -21,18 +21,28 @@
 					sizes="360px xs:800px md:1200px xl:408px"
 				/>
 
-				<div>{{ item._description }}</div>
+				<div class="info-row grid-row">
+					<div>{{ item.count }}-комнатная №{{ item.number }}</div>
+					<div>{{ item.area }}</div>
 
-				<div>{{ item.area }}</div>
-				<div>{{ item._floor }}</div>
-				<div>{{ item._price }}</div>
+					<div>
+						<span>{{ item.floor }}</span>
+						<span> из {{ floors }}</span>
+						<span class="d-i-lte-960"> этаж</span>
+					</div>
+
+					<div>
+						<span>{{ ruFormat.format(item.price) }}</span>
+						<span class="d-i-lte-960"> ₽</span>
+					</div>
+				</div>
 			</li>
 		</ul>
 	</div>
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
 	floors: number;
 	apartments: Apartment[];
 }>();
@@ -44,17 +54,6 @@ const HEADERS = [
 	{ name: 'Этаж', sort: true, sm: true },
 	{ name: 'Цена, ₽', sort: true, sm: true }
 ];
-
-const apartList = computed(() => {
-	return props.apartments.map((item) => {
-		return {
-			...item,
-			_description: `${item.count}-комнатная №${item.number}`,
-			_floor: `${item.floor} из ${props.floors}`,
-			_price: ruFormat.format(item.price)
-		};
-	});
-});
 </script>
 
 <style lang="scss" scoped>
@@ -72,6 +71,12 @@ const apartList = computed(() => {
 	&__sm {
 		display: block;
 	}
+}
+
+.info-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
 }
 
 @include desktop {

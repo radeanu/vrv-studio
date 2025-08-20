@@ -29,6 +29,33 @@ function paginateData<T>(
 	};
 }
 
+function getFilters(list: Apartment[]): ApartmentsFilters {
+	let priceMax = 0;
+	let priceMin = 0;
+	let areaMax = 0;
+	let areaMin = 0;
+	let roomsMax = 0;
+	let roomsMin = 0;
+
+	list.forEach((ap) => {
+		if (ap.price > priceMax) priceMax = ap.price;
+		if (ap.price < priceMin) priceMin = ap.price;
+		if (ap.area > areaMax) areaMax = ap.area;
+		if (ap.area < areaMin) areaMin = ap.area;
+		if (ap.count > roomsMax) roomsMax = ap.count;
+		if (ap.count < roomsMin) roomsMin = ap.count;
+	});
+
+	return {
+		priceMax,
+		priceMin,
+		areaMax,
+		areaMin,
+		roomsMax,
+		roomsMin
+	};
+}
+
 export default defineEventHandler(async (event) => {
 	const query = getQuery<ApartmentsQuery>(event);
 	const house = houseRepo.getHouse();
@@ -46,10 +73,12 @@ export default defineEventHandler(async (event) => {
 	});
 
 	const res = paginateData(list, query.page, query.limit);
+	const filters = getFilters(list);
 
 	const data: ApartmentsResponse = {
 		pagination: res.pagination,
 		data: {
+			filters,
 			floors: house.floors,
 			apartments: res.docs
 		}

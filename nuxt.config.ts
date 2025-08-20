@@ -64,7 +64,7 @@ export default defineNuxtConfig({
 	css: ['@/styles/main.scss'],
 	compatibilityDate: '2025-07-15',
 	devtools: { enabled: false },
-	modules: ['@nuxt/eslint', '@nuxt/icon', '@nuxt/image'],
+	modules: ['@nuxt/eslint', '@nuxt/icon', '@nuxt/image', '@pinia/nuxt'],
 	runtimeConfig: {
 		// API_BASE_URL: process.env.API_BASE_URL,
 		API_BASE_URL: 'http://localhost:3000/api'

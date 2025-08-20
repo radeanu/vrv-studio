@@ -4,11 +4,11 @@
 			<button
 				v-for="v in options.roomsMax"
 				:key="v"
-				:disabled="v > options.roomsFact"
+				:disabled="v > options.roomsMin"
 				:class="{
 					'room-button': true,
 					'room-button__active': roomF === v,
-					'room-button__disabled': v > options.roomsFact
+					'room-button__disabled': v > options.roomsMin
 				}"
 				@click="roomF = v"
 			>
@@ -23,32 +23,25 @@
 				<div class="range-values">
 					<span class="range-value">
 						<span class="label">от</span>
-						<span>&nbsp;{{ ruFormat.format(priceMinF) }}</span>
+						<span class="value"
+							>&nbsp;{{ ruFormat.format(priceMinF) }}</span
+						>
 					</span>
 					<span class="range-value">
 						<span class="label">до</span>
-						<span>&nbsp;{{ ruFormat.format(priceMaxF) }}</span>
+						<span class="value"
+							>&nbsp;{{ ruFormat.format(priceMaxF) }}</span
+						>
 					</span>
 				</div>
 
-				<div class="range-slider">
-					<input
-						type="range"
-						:min="options.priceMin"
-						:max="options.priceMax"
-						v-model.number="priceMinF"
-						class="range-input min"
-					/>
-					<input
-						type="range"
-						:min="options.priceMin"
-						:max="options.priceMax"
-						v-model.number="priceMaxF"
-						class="range-input max"
-					/>
-					<div class="range-track"></div>
-					<div class="range-progress"></div>
-				</div>
+				<UIRangeSlider
+					:min-value="options.priceMin"
+					:max-value="options.priceMax"
+					:step="10000"
+					v-model:min="priceMinF"
+					v-model:max="priceMaxF"
+				/>
 			</div>
 		</div>
 
@@ -59,32 +52,21 @@
 				<div class="range-values">
 					<span class="range-value">
 						<span class="label">от</span>
-						<span>&nbsp;{{ areaMinF }}</span>
+						<span class="value">&nbsp;{{ areaMinF }}</span>
 					</span>
 					<span class="range-value">
 						<span class="label">до</span>
-						<span>&nbsp;{{ areaMaxF }}</span>
+						<span class="value">&nbsp;{{ areaMaxF }}</span>
 					</span>
 				</div>
 
-				<div class="range-slider">
-					<input
-						type="range"
-						:min="options.areaMin"
-						:max="options.areaMax"
-						v-model.number="areaMinF"
-						class="range-input min"
-					/>
-					<input
-						type="range"
-						:min="options.areaMin"
-						:max="options.areaMax"
-						v-model.number="areaMaxF"
-						class="range-input max"
-					/>
-					<div class="range-track"></div>
-					<div class="range-progress"></div>
-				</div>
+				<UIRangeSlider
+					:min-value="options.areaMin"
+					:max-value="options.areaMax"
+					:step="1"
+					v-model:min="areaMinF"
+					v-model:max="areaMaxF"
+				/>
 			</div>
 		</div>
 
@@ -100,14 +82,14 @@
 <script setup lang="ts">
 export type FilterProps = {
 	roomsMax: number;
-	roomsFact: number;
+	roomsMin: number;
 	priceMin: number;
 	priceMax: number;
 	areaMin: number;
 	areaMax: number;
 };
 
-defineProps<{ options: FilterProps }>();
+const props = defineProps<{ options: FilterProps }>();
 
 const roomF = defineModel<number>('rooms', { default: 2 });
 const priceMinF = defineModel<number>('priceMin', { default: 0 });
@@ -115,12 +97,19 @@ const priceMaxF = defineModel<number>('priceMax', { default: 0 });
 const areaMinF = defineModel<number>('areaMin', { default: 0 });
 const areaMaxF = defineModel<number>('areaMax', { default: 0 });
 
+onMounted(() => {
+	resetFilters();
+});
+
 function resetFilters() {
 	roomF.value = 2;
-	priceMinF.value = 0;
-	priceMaxF.value = 0;
-	areaMinF.value = 0;
-	areaMaxF.value = 0;
+	const priceRange = props.options.priceMax - props.options.priceMin;
+	priceMinF.value = props.options.priceMin + priceRange * 0.1;
+	priceMaxF.value = props.options.priceMax - priceRange * 0.2;
+
+	const areaRange = props.options.areaMax - props.options.areaMin;
+	areaMinF.value = props.options.areaMin + areaRange * 0.1;
+	areaMaxF.value = props.options.areaMax - areaRange * 0.2;
 }
 </script>
 
@@ -182,98 +171,40 @@ function resetFilters() {
 }
 
 .range-values {
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
 	margin-bottom: 8px;
 	font-size: 14px;
 	line-height: 20px;
 	font-weight: 400;
+}
+
+.range-value {
+	display: flex;
+	align-items: center;
+	gap: 8px;
 
 	.label {
 		color: var(--color-primary-05);
 	}
-}
 
-.range-slider {
-	position: relative;
-	height: 3px;
-	background: var(--color-primary-01);
-	border-radius: 1.5px;
-}
-
-.range-track {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	height: 100%;
-	background: var(--color-primary-01);
-	border-radius: 3px;
-}
-
-.range-progress {
-	position: absolute;
-	top: 0;
-	height: 100%;
-	background: #4caf50;
-	border-radius: 3px;
-	pointer-events: none;
-}
-
-.range-input {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 100%;
-	height: 6px;
-	background: transparent;
-	pointer-events: none;
-	appearance: none;
-	z-index: 2;
-
-	&::-webkit-slider-thumb {
-		appearance: none;
-		width: 14px;
-		height: 14px;
-		border-radius: 50%;
-		background: rgba(62, 181, 124, 1);
-		cursor: pointer;
-		pointer-events: auto;
-	}
-
-	&::-moz-range-thumb {
-		width: 14px;
-		height: 14px;
-		border-radius: 50%;
-		background: rgba(62, 181, 124, 1);
-		cursor: pointer;
-		pointer-events: auto;
-	}
-
-	&.min {
-		z-index: 3;
-	}
-
-	&.max {
-		z-index: 4;
+	.value {
+		font-weight: 500;
 	}
 }
 
-// Reset Button
 .reset-button {
 	display: flex;
 	align-items: center;
 	gap: 8px;
-	background: none;
-	border: none;
-	color: #666;
+	color: #000000;
 	font-size: 14px;
+	margin-left: 16px;
+	font-weight: 400;
 	cursor: pointer;
-	padding: 0;
-	transition: color 0.2s ease;
 
 	&:hover {
-		color: #333;
+		color: var(--color-primary);
 	}
 }
 

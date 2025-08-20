@@ -24,7 +24,7 @@
 				<div>
 					<span>{{ apartment.floor }}</span>
 					<span class="text-05">
-						<span> из {{ floors }}</span>
+						<span> из {{ apStore.floors }}</span>
 						<span class="d-i-lte-960"> этаж</span>
 					</span>
 				</div>
@@ -53,8 +53,9 @@
 <script setup lang="ts">
 const props = defineProps<{
 	apartment: Apartment;
-	floors: number;
 }>();
+
+const apStore = useApartmentsStore();
 
 const payload = computed(() => ({
 	image: `/images/${props.apartment.image}`,

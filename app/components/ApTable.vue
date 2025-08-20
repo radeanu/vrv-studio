@@ -12,20 +12,16 @@
 
 		<div>
 			<ApTableRow
-				v-for="(item, idx) in apartments"
+				v-for="(item, idx) in apStore.apartments"
 				:key="idx"
 				:apartment="item"
-				:floors="floors"
 			/>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-defineProps<{
-	floors: number;
-	apartments: Apartment[];
-}>();
+const apStore = useApartmentsStore();
 
 const HEADERS = [
 	{ name: 'Планировка', sort: false, sm: false },

@@ -8,10 +8,20 @@ export type ApartmentsQuery = {
 	fAreaMax?: number;
 };
 
+export type ApartmentsFilters = {
+	priceMax: number;
+	priceMin: number;
+	areaMax: number;
+	areaMin: number;
+	roomsMax: number;
+	roomsMin: number;
+};
+
 export type ApartmentsResponse = {
 	pagination: Pagination;
 	data: {
 		floors: number;
+		filters: ApartmentsFilters;
 		apartments: Apartment[];
 	};
 };

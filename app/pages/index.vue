@@ -3,37 +3,31 @@
 		<div>
 			<h1>Квартиры</h1>
 
-			<ApTable :apartments="apartments" :floors="floors" />
+			<ApTable />
 		</div>
 
 		<div>
 			<ApartmentFilter
-				:options="fOptions"
+				:options="{
+					roomsMax: apStore.filters.roomsMax,
+					roomsMin: apStore.filters.roomsMin,
+					priceMin: apStore.filters.priceMin,
+					priceMax: apStore.filters.priceMax,
+					areaMin: apStore.filters.areaMin,
+					areaMax: apStore.filters.areaMax
+				}"
 				v-model:rooms="filterValues.rooms"
 				v-model:priceMin="filterValues.priceMin"
 				v-model:priceMax="filterValues.priceMax"
 				v-model:areaMin="filterValues.areaMin"
 				v-model:areaMax="filterValues.areaMax"
 			/>
-			<pre>{{ filterValues }}</pre>
+			<pre>{{ apStore.filters }}</pre>
 		</div>
 	</main>
 </template>
 
 <script setup lang="ts">
-const { apartments, fetchApartments, floors, pagination, query } =
-	useApartments();
-
-const fOptions = {
-	roomsMax: 4,
-	roomsFact: 3,
-	priceMin: 5500000,
-	priceMax: 18900000,
-	areaMin: 33,
-	areaMax: 123
-};
-
-// Filter state
 const filterValues = ref({
 	rooms: 2,
 	priceMin: 5500000,
@@ -42,15 +36,17 @@ const filterValues = ref({
 	areaMax: 123
 });
 
-// Handle filter changes
-const handleFilterChange = (newFilters: any) => {
-	console.log('Filter changed:', newFilters);
-	// Here you would typically update the query and refetch apartments
-	// For now, we'll just log the changes
-};
+const apStore = useApartmentsStore();
+const { query } = useApartmentsQuery();
+
+watchEffect(() => {
+	if (Object.keys(query.value).length > 0) {
+		apStore.fetchApartments(query.value);
+	}
+});
 
 onMounted(async () => {
-	await fetchApartments();
+	await apStore.fetchApartments();
 });
 </script>
 

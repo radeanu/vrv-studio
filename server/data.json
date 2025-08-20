@@ -7,7 +7,7 @@
 			"price": 6630500,
 			"area": 63.1,
 			"floor": 1,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 105,
@@ -15,7 +15,7 @@
 			"price": 5200000,
 			"area": 45.5,
 			"floor": 3,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 106,
@@ -23,7 +23,7 @@
 			"price": 8900000,
 			"area": 78.2,
 			"floor": 8,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 107,
@@ -31,7 +31,7 @@
 			"price": 3800000,
 			"area": 42.0,
 			"floor": 12,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 108,
@@ -39,7 +39,7 @@
 			"price": 7100000,
 			"area": 68.7,
 			"floor": 5,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 109,
@@ -47,7 +47,7 @@
 			"price": 4950000,
 			"area": 52.3,
 			"floor": 15,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 110,
@@ -55,7 +55,7 @@
 			"price": 9200000,
 			"area": 79.8,
 			"floor": 2,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 111,
@@ -63,7 +63,7 @@
 			"price": 3500000,
 			"area": 40.5,
 			"floor": 10,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 112,
@@ -71,7 +71,7 @@
 			"price": 6800000,
 			"area": 65.4,
 			"floor": 7,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 113,
@@ -79,7 +79,7 @@
 			"price": 5500000,
 			"area": 58.9,
 			"floor": 14,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 114,
@@ -87,7 +87,7 @@
 			"price": 8500000,
 			"area": 75.6,
 			"floor": 4,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 115,
@@ -95,7 +95,7 @@
 			"price": 7300000,
 			"area": 70.2,
 			"floor": 11,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 116,
@@ -103,7 +103,7 @@
 			"price": 3900000,
 			"area": 44.7,
 			"floor": 16,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 117,
@@ -111,7 +111,7 @@
 			"price": 5100000,
 			"area": 55.8,
 			"floor": 6,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 118,
@@ -119,7 +119,7 @@
 			"price": 8800000,
 			"area": 77.3,
 			"floor": 9,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 119,
@@ -127,7 +127,7 @@
 			"price": 6950000,
 			"area": 62.9,
 			"floor": 13,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 120,
@@ -135,7 +135,7 @@
 			"price": 4750000,
 			"area": 50.1,
 			"floor": 17,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 121,
@@ -143,7 +143,7 @@
 			"price": 9100000,
 			"area": 79.5,
 			"floor": 1,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 122,
@@ -151,7 +151,7 @@
 			"price": 3650000,
 			"area": 41.2,
 			"floor": 8,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 123,
@@ -159,7 +159,7 @@
 			"price": 7200000,
 			"area": 67.8,
 			"floor": 3,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 124,
@@ -167,7 +167,7 @@
 			"price": 5300000,
 			"area": 53.7,
 			"floor": 12,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 125,
@@ -175,7 +175,7 @@
 			"price": 8700000,
 			"area": 76.9,
 			"floor": 5,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 126,
@@ -183,7 +183,7 @@
 			"price": 3750000,
 			"area": 43.8,
 			"floor": 15,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 127,
@@ -191,7 +191,7 @@
 			"price": 6750000,
 			"area": 64.2,
 			"floor": 7,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 128,
@@ -199,7 +199,7 @@
 			"price": 5400000,
 			"area": 57.4,
 			"floor": 2,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 129,
@@ -207,7 +207,7 @@
 			"price": 9300000,
 			"area": 78.7,
 			"floor": 11,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 130,
@@ -215,7 +215,7 @@
 			"price": 7400000,
 			"area": 69.5,
 			"floor": 4,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 131,
@@ -223,7 +223,7 @@
 			"price": 4000000,
 			"area": 46.3,
 			"floor": 14,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 132,
@@ -231,7 +231,7 @@
 			"price": 5600000,
 			"area": 59.6,
 			"floor": 9,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 133,
@@ -239,7 +239,7 @@
 			"price": 8600000,
 			"area": 74.8,
 			"floor": 6,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 134,
@@ -247,7 +247,7 @@
 			"price": 7050000,
 			"area": 66.7,
 			"floor": 13,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 135,
@@ -255,7 +255,7 @@
 			"price": 4850000,
 			"area": 51.9,
 			"floor": 1,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 136,
@@ -263,7 +263,7 @@
 			"price": 8950000,
 			"area": 77.9,
 			"floor": 10,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 137,
@@ -271,7 +271,7 @@
 			"price": 3550000,
 			"area": 40.8,
 			"floor": 16,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 138,
@@ -279,7 +279,7 @@
 			"price": 7150000,
 			"area": 68.3,
 			"floor": 8,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 139,
@@ -287,7 +287,7 @@
 			"price": 5250000,
 			"area": 54.2,
 			"floor": 3,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 140,
@@ -295,7 +295,7 @@
 			"price": 9050000,
 			"area": 79.2,
 			"floor": 12,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 141,
@@ -303,7 +303,7 @@
 			"price": 6850000,
 			"area": 65.9,
 			"floor": 5,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 142,
@@ -311,7 +311,7 @@
 			"price": 3850000,
 			"area": 45.1,
 			"floor": 17,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 143,
@@ -319,7 +319,7 @@
 			"price": 5050000,
 			"area": 56.7,
 			"floor": 11,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 144,
@@ -327,7 +327,7 @@
 			"price": 8750000,
 			"area": 76.4,
 			"floor": 2,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 145,
@@ -335,7 +335,7 @@
 			"price": 7250000,
 			"area": 70.8,
 			"floor": 7,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 146,
@@ -343,7 +343,7 @@
 			"price": 5450000,
 			"area": 58.3,
 			"floor": 15,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 147,
@@ -351,7 +351,7 @@
 			"price": 9150000,
 			"area": 78.9,
 			"floor": 4,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 148,
@@ -359,7 +359,7 @@
 			"price": 3600000,
 			"area": 41.9,
 			"floor": 13,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 149,
@@ -367,7 +367,7 @@
 			"price": 6900000,
 			"area": 67.2,
 			"floor": 9,
-			"image": "home.svg"
+			"image": "home.png"
 		},
 		{
 			"number": 150,
@@ -375,7 +375,7 @@
 			"price": 8850000,
 			"area": 77.6,
 			"floor": 6,
-			"image": "home.svg"
+			"image": "home.png"
 		}
 	]
 }

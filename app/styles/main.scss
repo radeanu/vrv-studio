@@ -2,3 +2,26 @@
 @use 'variables/init';
 @use 'breakpoints';
 @use 'mixins';
+
+html,
+body {
+	font-size: 14px;
+	line-height: 20px;
+	font-weight: 400;
+	font-family: var(--font-family);
+	color: var(--color-primary);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.cl-primary {
+	color: var(--color-primary);
+}
+
+.cl-secondary {
+	color: var(--color-secondary);
+}
+
+.cl-primary-05 {
+	color: var(--color-primary-05);
+}

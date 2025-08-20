@@ -1,9 +1,8 @@
 <template>
-	<ApTable :apartments="apartments" :floors="floors" />
-
-	<pre>{{ pagination }}</pre>
-	<pre>{{ query }}</pre>
-	<pre>{{ apartments }}</pre>
+	<main>
+		<h1>Квартиры</h1>
+		<ApTable :apartments="apartments" :floors="floors" />
+	</main>
 </template>
 
 <script setup lang="ts">
@@ -15,4 +14,10 @@ onMounted(async () => {
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+h1 {
+	font-size: 54px;
+	font-weight: 700;
+	line-height: 55px;
+}
+</style>

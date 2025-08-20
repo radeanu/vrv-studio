@@ -20,8 +20,8 @@ export function useApartments() {
 			const jsonRes: ApartmentsResponse = await res.json();
 
 			floors.value = jsonRes.data.floors;
-			apartments.value = jsonRes.data.apartments;
 			pagination.value = jsonRes.pagination;
+			apartments.value = jsonRes.data.apartments;
 		} catch (error) {
 			console.log(error);
 		}

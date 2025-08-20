@@ -65,7 +65,6 @@ const payload = computed(() => ({
 
 <style lang="scss" scoped>
 .ap-row {
-	width: fit-content;
 	border: 1px solid var(--border-color);
 	border-radius: 8px;
 	padding: 16px 24px;

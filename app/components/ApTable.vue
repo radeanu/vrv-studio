@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="ap-table">
 		<ul class="headers">
 			<li
 				v-for="header in HEADERS"

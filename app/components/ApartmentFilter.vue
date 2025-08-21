@@ -133,11 +133,11 @@ watch(
 );
 
 onMounted(() => {
-	filters.value.rooms = apQuery.query.value.rooms || props.roomsMin;
-	filters.value.priceMin = apQuery.query.value.priceMin || props.priceMin;
-	filters.value.priceMax = apQuery.query.value.priceMax || props.priceMax;
-	filters.value.areaMin = apQuery.query.value.areaMin || props.areaMin;
-	filters.value.areaMax = apQuery.query.value.areaMax || props.areaMax;
+	filters.value.rooms = apQuery.query.value.fRooms || props.roomsMin;
+	filters.value.priceMin = apQuery.query.value.fPriceMin || props.priceMin;
+	filters.value.priceMax = apQuery.query.value.fPriceMax || props.priceMax;
+	filters.value.areaMin = apQuery.query.value.fAreaMin || props.areaMin;
+	filters.value.areaMax = apQuery.query.value.fAreaMax || props.areaMax;
 });
 
 function resetFilters() {

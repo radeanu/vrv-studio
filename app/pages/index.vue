@@ -21,13 +21,6 @@
 
 <script setup lang="ts">
 const apStore = useApartmentsStore();
-// const { query } = useApartmentsQuery();
-
-/*watchEffect(() => {
-	if (Object.keys(query.value).length > 0) {
-		apStore.fetchApartments(query.value);
-	}
-});*/
 
 onMounted(async () => {
 	await apStore.fetchApartments();

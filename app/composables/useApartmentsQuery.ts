@@ -1,31 +1,22 @@
 export function useApartmentsQuery() {
 	const route = useRoute();
 	const router = useRouter();
+	const routeQuery = useRouteQuery('/');
 
-	const query = computed(() => {
+	const query = computed<ApartmentsQuery>(() => {
 		return {
-			priceMin: _getNumber('fPriceMin', 0),
-			priceMax: _getNumber('fPriceMax', 0),
-			areaMin: _getNumber('fAreaMin', 0),
-			areaMax: _getNumber('fAreaMax', 0),
-			rooms: _getNumber('fRooms', 0)
+			page: routeQuery.getNumber('page', 1),
+			limit: routeQuery.getNumber('limit', 5),
+			fPriceMin: routeQuery.getNumber('fPriceMin', undefined),
+			fPriceMax: routeQuery.getNumber('fPriceMax', undefined),
+			fAreaMin: routeQuery.getNumber('fAreaMin', undefined),
+			fAreaMax: routeQuery.getNumber('fAreaMax', undefined),
+			fRooms: routeQuery.getNumber('fRooms', undefined)
 		};
 	});
 
 	function pushToRoute(queryPartial: Partial<ApartmentsQuery>) {
 		router.push({ path: '/', query: { ...route.query, ...queryPartial } });
-	}
-
-	function _getNumber<T>(name: string, defV: T): T | number {
-		try {
-			const val = route.query[name];
-			if (!val) return defV;
-
-			const res = parseInt(val as string);
-			return res;
-		} catch (error) {
-			return defV;
-		}
 	}
 
 	return {

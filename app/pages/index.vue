@@ -8,42 +8,26 @@
 
 		<div>
 			<ApartmentFilter
-				:options="{
-					roomsMax: apStore.filters.roomsMax,
-					roomsMin: apStore.filters.roomsMin,
-					priceMin: apStore.filters.priceMin,
-					priceMax: apStore.filters.priceMax,
-					areaMin: apStore.filters.areaMin,
-					areaMax: apStore.filters.areaMax
-				}"
-				v-model:rooms="filterValues.rooms"
-				v-model:priceMin="filterValues.priceMin"
-				v-model:priceMax="filterValues.priceMax"
-				v-model:areaMin="filterValues.areaMin"
-				v-model:areaMax="filterValues.areaMax"
+				:price-min="2000000"
+				:price-max="10000000"
+				:area-min="30"
+				:area-max="120"
+				:rooms-min="1"
+				:rooms-max="4"
 			/>
-			<pre>{{ apStore.filters }}</pre>
 		</div>
 	</main>
 </template>
 
 <script setup lang="ts">
-const filterValues = ref({
-	rooms: 2,
-	priceMin: 5500000,
-	priceMax: 18900000,
-	areaMin: 33,
-	areaMax: 123
-});
-
 const apStore = useApartmentsStore();
-const { query } = useApartmentsQuery();
+// const { query } = useApartmentsQuery();
 
-watchEffect(() => {
+/*watchEffect(() => {
 	if (Object.keys(query.value).length > 0) {
 		apStore.fetchApartments(query.value);
 	}
-});
+});*/
 
 onMounted(async () => {
 	await apStore.fetchApartments();

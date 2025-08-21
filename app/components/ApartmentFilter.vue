@@ -2,17 +2,13 @@
 	<div class="apartment-filter">
 		<div class="room-buttons">
 			<button
-				v-for="v in options.roomsMax"
-				:key="v"
-				:disabled="v > options.roomsMin"
-				:class="{
-					'room-button': true,
-					'room-button__active': roomF === v,
-					'room-button__disabled': v > options.roomsMin
-				}"
-				@click="roomF = v"
+				v-for="btn in roomsBtns"
+				:key="btn.nr"
+				:disabled="btn.disabled"
+				:class="btn.class"
+				@click="filters.rooms = btn.nr"
 			>
-				{{ v }}к
+				{{ btn.nr }}к
 			</button>
 		</div>
 
@@ -23,24 +19,23 @@
 				<div class="range-values">
 					<span class="range-value">
 						<span class="label">от</span>
-						<span class="value"
-							>&nbsp;{{ ruFormat.format(priceMinF) }}</span
-						>
+						<span class="value">
+							&nbsp;{{ ruFormat.format(filters.priceMin) }}
+						</span>
 					</span>
 					<span class="range-value">
 						<span class="label">до</span>
-						<span class="value"
-							>&nbsp;{{ ruFormat.format(priceMaxF) }}</span
-						>
+						<span class="value">
+							&nbsp;{{ ruFormat.format(filters.priceMax) }}
+						</span>
 					</span>
 				</div>
-
 				<UIRangeSlider
-					:min-value="options.priceMin"
-					:max-value="options.priceMax"
+					:min-value="priceMin"
+					:max-value="priceMax"
 					:step="10000"
-					v-model:min="priceMinF"
-					v-model:max="priceMaxF"
+					v-model:min="filters.priceMin"
+					v-model:max="filters.priceMax"
 				/>
 			</div>
 		</div>
@@ -52,20 +47,20 @@
 				<div class="range-values">
 					<span class="range-value">
 						<span class="label">от</span>
-						<span class="value">&nbsp;{{ areaMinF }}</span>
+						<span class="value"> &nbsp;{{ filters.areaMin }} </span>
 					</span>
 					<span class="range-value">
 						<span class="label">до</span>
-						<span class="value">&nbsp;{{ areaMaxF }}</span>
+						<span class="value"> &nbsp;{{ filters.areaMax }} </span>
 					</span>
 				</div>
 
 				<UIRangeSlider
-					:min-value="options.areaMin"
-					:max-value="options.areaMax"
+					:min-value="areaMin"
+					:max-value="areaMax"
 					:step="1"
-					v-model:min="areaMinF"
-					v-model:max="areaMaxF"
+					v-model:min="filters.areaMin"
+					v-model:max="filters.areaMax"
 				/>
 			</div>
 		</div>
@@ -81,35 +76,76 @@
 
 <script setup lang="ts">
 export type FilterProps = {
-	roomsMax: number;
-	roomsMin: number;
 	priceMin: number;
 	priceMax: number;
 	areaMin: number;
 	areaMax: number;
+	roomsMin: number;
+	roomsMax: number;
 };
 
-const props = defineProps<{ options: FilterProps }>();
+const props = defineProps<FilterProps>();
 
-const roomF = defineModel<number>('rooms', { default: 2 });
-const priceMinF = defineModel<number>('priceMin', { default: 0 });
-const priceMaxF = defineModel<number>('priceMax', { default: 0 });
-const areaMinF = defineModel<number>('areaMin', { default: 0 });
-const areaMaxF = defineModel<number>('areaMax', { default: 0 });
+const apQuery = useApartmentsQuery();
+const apStore = useApartmentsStore();
+
+const filters = ref({
+	rooms: 0,
+	priceMin: 0,
+	priceMax: 0,
+	areaMin: 0,
+	areaMax: 0
+});
+
+const maxRoomsCount = computed(() => {
+	return Math.max(...apStore.apartments.map((ap) => ap.count), 1);
+});
+
+const roomsBtns = computed(() => {
+	return Array.from({ length: 4 }, (_, i) => {
+		const disabled = i + 1 > maxRoomsCount.value;
+
+		return {
+			nr: i + 1,
+			active: filters.value.rooms === i + 1,
+			disabled,
+			class: {
+				'room-button': true,
+				'room-button__disabled': disabled,
+				'room-button__active': filters.value.rooms === i + 1
+			}
+		};
+	});
+});
+
+watch(
+	() => filters.value,
+	() => {
+		apQuery.pushToRoute({
+			fPriceMin: filters.value.priceMin,
+			fPriceMax: filters.value.priceMax,
+			fAreaMin: filters.value.areaMin,
+			fAreaMax: filters.value.areaMax,
+			fRooms: filters.value.rooms
+		});
+	},
+	{ deep: true }
+);
 
 onMounted(() => {
-	resetFilters();
+	filters.value.rooms = apQuery.query.value.rooms || props.roomsMin;
+	filters.value.priceMin = apQuery.query.value.priceMin || props.priceMin;
+	filters.value.priceMax = apQuery.query.value.priceMax || props.priceMax;
+	filters.value.areaMin = apQuery.query.value.areaMin || props.areaMin;
+	filters.value.areaMax = apQuery.query.value.areaMax || props.areaMax;
 });
 
 function resetFilters() {
-	roomF.value = 2;
-	const priceRange = props.options.priceMax - props.options.priceMin;
-	priceMinF.value = props.options.priceMin + priceRange * 0.1;
-	priceMaxF.value = props.options.priceMax - priceRange * 0.2;
-
-	const areaRange = props.options.areaMax - props.options.areaMin;
-	areaMinF.value = props.options.areaMin + areaRange * 0.1;
-	areaMaxF.value = props.options.areaMax - areaRange * 0.2;
+	filters.value.rooms = props.roomsMin;
+	filters.value.priceMin = props.priceMin;
+	filters.value.priceMax = props.priceMax;
+	filters.value.areaMin = props.areaMin;
+	filters.value.areaMax = props.areaMax;
 }
 </script>
 

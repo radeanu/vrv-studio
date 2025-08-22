@@ -47,7 +47,7 @@ export default defineNuxtConfig({
 		customCollections: [
 			{
 				prefix: 'local',
-				dir: './src/public/images/svg'
+				dir: './public/images/svg'
 			}
 		]
 	},

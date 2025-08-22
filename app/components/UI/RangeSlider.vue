@@ -34,8 +34,8 @@ const props = withDefaults(defineProps<Props>(), {
 	step: 1
 });
 
-const minModel = defineModel<number>('min', { required: true });
-const maxModel = defineModel<number>('max', { required: true });
+const minModel = defineModel<number | undefined>('min', { required: true });
+const maxModel = defineModel<number | undefined>('max', { required: true });
 
 let rafId: number | null = null;
 const rangeMin = ref(minModel.value);
@@ -49,10 +49,12 @@ const sliderRef = useTemplateRef<HTMLElement>('sliderRef');
 const range = computed(() => props.maxValue - props.minValue);
 
 const minPercent = computed(() => {
+	if (!rangeMin.value) return 0;
 	const val = ((rangeMin.value - props.minValue) / range.value) * 100;
 	return Math.max(0, val);
 });
 const maxPercent = computed(() => {
+	if (!rangeMax.value) return 100;
 	const val = ((rangeMax.value - props.minValue) / range.value) * 100;
 	return Math.max(0, val);
 });
@@ -149,11 +151,17 @@ function handleDrag(e: MouseEvent | TouchEvent) {
 	const steppedValue = Math.round(value / props.step) * props.step;
 
 	if (activeThumb.value === 'min') {
-		const newMin = Math.min(steppedValue, rangeMax.value - props.step);
+		const max = rangeMax.value ?? props.maxValue;
+		const newMin = Math.min(steppedValue, max - props.step);
 		rangeMin.value = Math.max(props.minValue, newMin);
-	} else {
-		const newMax = Math.max(steppedValue, rangeMin.value + props.step);
+		return;
+	}
+
+	if (activeThumb.value === 'max') {
+		const min = rangeMin.value ?? props.minValue;
+		const newMax = Math.max(steppedValue, min + props.step);
 		rangeMax.value = Math.min(props.maxValue, newMax);
+		return;
 	}
 }
 

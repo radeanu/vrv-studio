@@ -9,3 +9,9 @@
 		@content;
 	}
 }
+
+@mixin desktop-lg {
+	@media screen and (min-width: 1440px) {
+		@content;
+	}
+}

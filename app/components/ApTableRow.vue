@@ -93,4 +93,41 @@ const payload = computed(() => ({
 	font-weight: 400;
 	color: var(--color-primary-05);
 }
+
+@include desktop {
+	.ap-row {
+		grid-template-columns: 80px 1fr;
+		grid-template-rows: auto;
+		column-gap: 20px;
+		font-size: 16px;
+		line-height: 24px;
+		padding-block: 16px 24px;
+		padding-inline: 0;
+		border: 0;
+		border-radius: 0;
+		border-top: 1px solid var(--border-color);
+
+		&:last-of-type {
+			border-bottom: 1px solid var(--border-color);
+		}
+	}
+
+	.info {
+		display: grid;
+		grid-template-columns: minmax(100px, 1fr) auto;
+		grid-template-rows: auto;
+		align-items: start;
+		column-gap: 20px;
+		font-weight: 500;
+	}
+
+	.info-row {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(80px, 120px));
+		grid-template-rows: auto;
+		align-items: start;
+		column-gap: 20px;
+		font-weight: 400;
+	}
+}
 </style>

@@ -57,22 +57,31 @@ function getFilters(list: Apartment[]): ApartmentsFilters {
 }
 
 export default defineEventHandler(async (event) => {
-	const query = getQuery<ApartmentsQuery>(event);
+	const query =
+		getQuery<{ [key in keyof ApartmentsQuery]: string | undefined }>(event);
 	const house = houseRepo.getHouse();
 
+	const queryV = {
+		page: query.page ? Number(query.page) : undefined,
+		limit: query.limit ? Number(query.limit) : undefined,
+		rooms: query.fRooms ? Number(query.fRooms) : undefined,
+		priceMin: query.fPriceMin ? Number(query.fPriceMin) : undefined,
+		priceMax: query.fPriceMax ? Number(query.fPriceMax) : undefined,
+		areaMin: query.fAreaMin ? Number(query.fAreaMin) : undefined,
+		areaMax: query.fAreaMax ? Number(query.fAreaMax) : undefined
+	};
+
 	const list = house.apartments.filter((ap) => {
-		const validR = query.fRooms ? query.fRooms === ap.count : true;
-
-		const validPMin = query.fPriceMin ? ap.price >= query.fPriceMin : true;
-		const validPMax = query.fPriceMax ? ap.price <= query.fPriceMax : true;
-
-		const validAMin = query.fAreaMin ? ap.area >= query.fAreaMin : true;
-		const validAMax = query.fAreaMax ? ap.area <= query.fAreaMax : true;
+		const validR = queryV.rooms ? queryV.rooms === ap.count : true;
+		const validPMin = queryV.priceMin ? ap.price >= queryV.priceMin : true;
+		const validPMax = queryV.priceMax ? ap.price <= queryV.priceMax : true;
+		const validAMin = queryV.areaMin ? ap.area >= queryV.areaMin : true;
+		const validAMax = queryV.areaMax ? ap.area <= queryV.areaMax : true;
 
 		return validR && validPMin && validPMax && validAMin && validAMax;
 	});
 
-	const res = paginateData(list, query.page, query.limit);
+	const res = paginateData(list, queryV.page, queryV.limit);
 	const filters = getFilters(list);
 
 	const data: ApartmentsResponse = {

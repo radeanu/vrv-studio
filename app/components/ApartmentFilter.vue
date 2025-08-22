@@ -20,16 +20,21 @@
 					<span class="range-value">
 						<span class="label">от</span>
 						<span class="value">
-							&nbsp;{{ ruFormat.format(filters.priceMin) }}
+							&nbsp;{{
+								ruFormat.format(filters.priceMin ?? priceMin)
+							}}
 						</span>
 					</span>
 					<span class="range-value">
 						<span class="label">до</span>
 						<span class="value">
-							&nbsp;{{ ruFormat.format(filters.priceMax) }}
+							&nbsp;{{
+								ruFormat.format(filters.priceMax ?? priceMax)
+							}}
 						</span>
 					</span>
 				</div>
+
 				<UIRangeSlider
 					:min-value="priceMin"
 					:max-value="priceMax"
@@ -47,11 +52,15 @@
 				<div class="range-values">
 					<span class="range-value">
 						<span class="label">от</span>
-						<span class="value"> &nbsp;{{ filters.areaMin }} </span>
+						<span class="value">
+							&nbsp;{{ filters.areaMin ?? areaMin }}
+						</span>
 					</span>
 					<span class="range-value">
 						<span class="label">до</span>
-						<span class="value"> &nbsp;{{ filters.areaMax }} </span>
+						<span class="value">
+							&nbsp;{{ filters.areaMax ?? areaMax }}
+						</span>
 					</span>
 				</div>
 
@@ -84,17 +93,19 @@ export type FilterProps = {
 	roomsMax: number;
 };
 
-const props = defineProps<FilterProps>();
+defineProps<FilterProps>();
 
 const apQuery = useApartmentsQuery();
 const apStore = useApartmentsStore();
 
-const filters = ref({
-	rooms: 0,
-	priceMin: 0,
-	priceMax: 0,
-	areaMin: 0,
-	areaMax: 0
+const filters = ref<{
+	[key: string]: number | undefined;
+}>({
+	rooms: undefined,
+	priceMin: undefined,
+	priceMax: undefined,
+	areaMin: undefined,
+	areaMax: undefined
 });
 
 const maxRoomsCount = computed(() => {
@@ -103,7 +114,9 @@ const maxRoomsCount = computed(() => {
 
 const roomsBtns = computed(() => {
 	return Array.from({ length: 4 }, (_, i) => {
-		const disabled = i + 1 > maxRoomsCount.value;
+		const disabled = filters.value.rooms
+			? false
+			: i + 1 > maxRoomsCount.value;
 
 		return {
 			nr: i + 1,
@@ -122,6 +135,7 @@ watch(
 	() => filters.value,
 	() => {
 		apQuery.pushToRoute({
+			page: 1,
 			fPriceMin: filters.value.priceMin,
 			fPriceMax: filters.value.priceMax,
 			fAreaMin: filters.value.areaMin,
@@ -133,19 +147,21 @@ watch(
 );
 
 onMounted(() => {
-	filters.value.rooms = apQuery.query.value.fRooms || props.roomsMin;
-	filters.value.priceMin = apQuery.query.value.fPriceMin || props.priceMin;
-	filters.value.priceMax = apQuery.query.value.fPriceMax || props.priceMax;
-	filters.value.areaMin = apQuery.query.value.fAreaMin || props.areaMin;
-	filters.value.areaMax = apQuery.query.value.fAreaMax || props.areaMax;
+	filters.value.rooms = apQuery.query.value.fRooms;
+	filters.value.priceMin = apQuery.query.value.fPriceMin;
+	filters.value.priceMax = apQuery.query.value.fPriceMax;
+	filters.value.areaMin = apQuery.query.value.fAreaMin;
+	filters.value.areaMax = apQuery.query.value.fAreaMax;
 });
 
 function resetFilters() {
-	filters.value.rooms = props.roomsMin;
-	filters.value.priceMin = props.priceMin;
-	filters.value.priceMax = props.priceMax;
-	filters.value.areaMin = props.areaMin;
-	filters.value.areaMax = props.areaMax;
+	filters.value.rooms = undefined;
+	filters.value.priceMin = undefined;
+	filters.value.priceMax = undefined;
+	filters.value.areaMin = undefined;
+	filters.value.areaMax = undefined;
+
+	apStore.reset();
 }
 </script>
 

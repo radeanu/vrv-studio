@@ -72,7 +72,7 @@ h1 {
 	font-size: 54px;
 	font-weight: 700;
 	line-height: 55px;
-	margin-bottom: 32px;
+	margin-bottom: 24px;
 }
 
 .filter-container {
@@ -107,6 +107,10 @@ h1 {
 	main {
 		grid-template-columns: 1fr minmax(299px, 399px);
 		column-gap: 40px;
+	}
+
+	h1 {
+		margin-bottom: 48px;
 	}
 }
 

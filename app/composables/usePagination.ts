@@ -1,22 +1,12 @@
 export function usePagination(path: string) {
 	const routeQuery = useRouteQuery(path);
-	const apQuery = useApartmentsQuery();
 
-	const defValues = () => ({
-		page: 1,
-		limit: 5,
-		count: 0,
-		next: null,
-		prev: null,
-		pagesCount: 0
-	});
+	const pagination = ref<Pagination>(defValues());
 
 	const queryData = computed(() => ({
 		page: routeQuery.getNumber('page', 1),
 		limit: routeQuery.getNumber('limit', 5)
 	}));
-
-	const pagination = ref<Pagination>(defValues());
 
 	watch(
 		queryData,
@@ -28,7 +18,7 @@ export function usePagination(path: string) {
 	);
 
 	watch(pagination, () => {
-		apQuery.pushToRoute({
+		routeQuery.pushToRoute({
 			page: pagination.value.page,
 			limit: pagination.value.limit
 		});
@@ -36,6 +26,17 @@ export function usePagination(path: string) {
 
 	function reset() {
 		pagination.value = defValues();
+	}
+
+	function defValues() {
+		return {
+			page: 1,
+			limit: 5,
+			count: 0,
+			next: null,
+			prev: null,
+			pagesCount: 0
+		};
 	}
 
 	return {

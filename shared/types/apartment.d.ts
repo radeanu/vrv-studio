@@ -1,3 +1,12 @@
+export type ApSort = 'price' | 'area' | 'floor';
+
+export type ApHeader = {
+	name: string;
+	sm: boolean;
+	sort: boolean;
+	sort_v: ApSort | null;
+};
+
 export type ApartmentsQuery = {
 	page?: number;
 	limit?: number;
@@ -6,6 +15,8 @@ export type ApartmentsQuery = {
 	fPriceMax?: number;
 	fAreaMin?: number;
 	fAreaMax?: number;
+	sort?: ApSort;
+	order?: SortOrder;
 };
 
 export type ApartmentsFilters = {

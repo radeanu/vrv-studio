@@ -1,6 +1,4 @@
 export function useApartmentsQuery() {
-	const route = useRoute();
-	const router = useRouter();
 	const routeQuery = useRouteQuery('/');
 
 	const query = computed<ApartmentsQuery>(() => {
@@ -11,16 +9,33 @@ export function useApartmentsQuery() {
 			fPriceMax: routeQuery.getNumber('fPriceMax', undefined),
 			fAreaMin: routeQuery.getNumber('fAreaMin', undefined),
 			fAreaMax: routeQuery.getNumber('fAreaMax', undefined),
-			fRooms: routeQuery.getNumber('fRooms', undefined)
+			fRooms: routeQuery.getNumber('fRooms', undefined),
+			sort: routeQuery.getValue('sort', undefined),
+			order: routeQuery.getValue('order', undefined)
 		};
 	});
 
 	function pushToRoute(queryPartial: Partial<ApartmentsQuery>) {
-		router.push({ path: '/', query: { ...route.query, ...queryPartial } });
+		routeQuery.pushToRoute(queryPartial);
+	}
+
+	async function reset() {
+		await routeQuery.pushToRoute({
+			page: 1,
+			limit: 5,
+			fPriceMin: undefined,
+			fPriceMax: undefined,
+			fAreaMin: undefined,
+			fAreaMax: undefined,
+			fRooms: undefined,
+			sort: undefined,
+			order: undefined
+		});
 	}
 
 	return {
 		query,
+		reset,
 		pushToRoute
 	};
 }

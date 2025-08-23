@@ -57,8 +57,7 @@ function getFilters(list: Apartment[]): ApartmentsFilters {
 }
 
 export default defineEventHandler(async (event) => {
-	const query =
-		getQuery<{ [key in keyof ApartmentsQuery]: string | undefined }>(event);
+	const query = getQuery<ApartmentsQuery>(event);
 	const house = houseRepo.getHouse();
 
 	const queryV = {
@@ -71,15 +70,27 @@ export default defineEventHandler(async (event) => {
 		areaMax: query.fAreaMax ? Number(query.fAreaMax) : undefined
 	};
 
-	const list = house.apartments.filter((ap) => {
-		const validR = queryV.rooms ? queryV.rooms === ap.count : true;
-		const validPMin = queryV.priceMin ? ap.price >= queryV.priceMin : true;
-		const validPMax = queryV.priceMax ? ap.price <= queryV.priceMax : true;
-		const validAMin = queryV.areaMin ? ap.area >= queryV.areaMin : true;
-		const validAMax = queryV.areaMax ? ap.area <= queryV.areaMax : true;
+	const list = house.apartments
+		.filter((ap) => {
+			const validR = queryV.rooms ? queryV.rooms === ap.count : true;
+			const validPMin = queryV.priceMin
+				? ap.price >= queryV.priceMin
+				: true;
+			const validPMax = queryV.priceMax
+				? ap.price <= queryV.priceMax
+				: true;
+			const validAMin = queryV.areaMin ? ap.area >= queryV.areaMin : true;
+			const validAMax = queryV.areaMax ? ap.area <= queryV.areaMax : true;
 
-		return validR && validPMin && validPMax && validAMin && validAMax;
-	});
+			return validR && validPMin && validPMax && validAMin && validAMax;
+		})
+		.toSorted((a, b) => {
+			if (!query.sort) return 0;
+
+			return query.order === 'asc'
+				? a[query.sort] - b[query.sort]
+				: b[query.sort] - a[query.sort];
+		});
 
 	const res = paginateData(list, queryV.page, queryV.limit);
 	const filters = getFilters(list);

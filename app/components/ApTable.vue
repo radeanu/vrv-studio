@@ -2,11 +2,21 @@
 	<div class="ap-table">
 		<ul class="headers">
 			<li
-				v-for="header in HEADERS"
+				v-for="header in apStore.HEADERS"
 				:key="header.name"
 				:class="{ header: true, header__sm: header.sm }"
 			>
-				<span>{{ header.name }}</span>
+				<UIButtonSort
+					v-if="header.sort"
+					:path="'/'"
+					:name="header.sort_v"
+				>
+					<template #label>
+						<span>{{ header.name }}</span>
+					</template>
+				</UIButtonSort>
+
+				<span v-else>{{ header.name }}</span>
 			</li>
 		</ul>
 
@@ -30,14 +40,6 @@
 
 <script setup lang="ts">
 const apStore = useApartmentsStore();
-
-const HEADERS = [
-	{ name: 'Планировка', sort: false, sm: false },
-	{ name: 'Квартира', sort: false, sm: false },
-	{ name: 'S, м²', sort: true, sm: true },
-	{ name: 'Этаж', sort: true, sm: true },
-	{ name: 'Цена, ₽', sort: true, sm: true }
-];
 </script>
 
 <style lang="scss" scoped>
@@ -47,6 +49,9 @@ const HEADERS = [
 	gap: 20px;
 	align-items: center;
 	height: 36px;
+	font-size: 14px;
+	line-height: 20px;
+	font-weight: 400;
 }
 
 .header {
@@ -79,6 +84,15 @@ const HEADERS = [
 }
 
 @include desktop {
+	.headers {
+		display: grid;
+		grid-template-columns: 80px minmax(100px, 1fr) repeat(
+				3,
+				minmax(80px, 120px)
+			);
+		column-gap: 20px;
+	}
+
 	.header {
 		display: block;
 	}

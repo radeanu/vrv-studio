@@ -95,8 +95,8 @@ export type FilterProps = {
 
 defineProps<FilterProps>();
 
-const apQuery = useApartmentsQuery();
 const apStore = useApartmentsStore();
+const apQuery = useApartmentsQuery();
 
 const filters = ref<{
 	[key: string]: number | undefined;

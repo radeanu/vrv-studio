@@ -1,0 +1,16 @@
+services:
+    app-dev:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - '3000:3000'
+        volumes:
+            - .:/app
+            - /app/node_modules
+            - /app/.nuxt
+        environment:
+            - NODE_ENV=development
+            - NITRO_HOST=0.0.0.0
+            - NITRO_PORT=3000
+        command: npm run dev

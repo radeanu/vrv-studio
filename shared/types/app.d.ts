@@ -6,3 +6,5 @@ export type Pagination = {
 	prev: number | null;
 	next: number | null;
 };
+
+export type SortOrder = 'asc' | 'desc' | null;

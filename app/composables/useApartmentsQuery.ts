@@ -4,7 +4,7 @@ export function useApartmentsQuery() {
 	const query = computed<ApartmentsQuery>(() => {
 		return {
 			page: routeQuery.getNumber('page', 1),
-			limit: routeQuery.getNumber('limit', 5),
+			limit: routeQuery.getNumber('limit', 20),
 			fPriceMin: routeQuery.getNumber('fPriceMin', undefined),
 			fPriceMax: routeQuery.getNumber('fPriceMax', undefined),
 			fAreaMin: routeQuery.getNumber('fAreaMin', undefined),
@@ -19,10 +19,10 @@ export function useApartmentsQuery() {
 		routeQuery.pushToRoute(queryPartial);
 	}
 
-	async function reset() {
-		await routeQuery.pushToRoute({
+	function reset() {
+		routeQuery.pushToRoute({
 			page: 1,
-			limit: 5,
+			limit: 20,
 			fPriceMin: undefined,
 			fPriceMax: undefined,
 			fAreaMin: undefined,

@@ -1,11 +1,12 @@
 export function usePagination(path: string) {
 	const routeQuery = useRouteQuery(path);
+	const defaultV = defValues();
 
 	const pagination = ref<Pagination>(defValues());
 
 	const queryData = computed(() => ({
-		page: routeQuery.getNumber('page', 1),
-		limit: routeQuery.getNumber('limit', 5)
+		page: routeQuery.getNumber('page', defaultV.page),
+		limit: routeQuery.getNumber('limit', defaultV.limit)
 	}));
 
 	watch(
@@ -31,7 +32,7 @@ export function usePagination(path: string) {
 	function defValues() {
 		return {
 			page: 1,
-			limit: 5,
+			limit: 20,
 			count: 0,
 			next: null,
 			prev: null,

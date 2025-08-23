@@ -32,8 +32,8 @@ export const useApartmentsStore = defineStore('apartments', () => {
 		}
 	);
 
-	async function loadMore() {
-		await apQuery.pushToRoute({
+	function loadMore() {
+		apQuery.pushToRoute({
 			page: (apQuery.query.value.page ?? 0) + 1
 		});
 	}
@@ -62,10 +62,10 @@ export const useApartmentsStore = defineStore('apartments', () => {
 		}
 	}
 
-	async function reset() {
+	function reset() {
 		floors.value = 0;
 		apartments.value = [];
-		await apQuery.reset();
+		apQuery.reset();
 	}
 
 	return {

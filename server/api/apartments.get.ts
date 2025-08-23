@@ -5,7 +5,7 @@ const houseRepo = getHouseRepo();
 function paginateData<T>(
 	docs: T[],
 	page = 1,
-	limit = 5
+	limit = 20
 ): { docs: T[]; pagination: Pagination } {
 	const skip = page ? page - 1 : 0;
 	const offset = skip * limit;
